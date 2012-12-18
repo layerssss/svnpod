@@ -27,10 +27,14 @@ app.use express.basicAuth (user, pass, next)->
   fs.readFile app.get('passwd_svnserve'),'utf8',(err, text)->
     next err, ((text||'').match(new RegExp("(#{user}):#{pass}"))||[])[1]
 
-    
-app.all "*",(req,res,next)->
-  console.log req.user
+app.get '/', (req, res, next)->
   res.render 'index'
+
+app.post '/', (req, res, next)->
+  fs.exists app.get('passwd_apache'), (exists)->
+    return next() if exists
+    fs.writeFileSync app.get('passwd_apache'),'','utf8',next
+
 
 
 
