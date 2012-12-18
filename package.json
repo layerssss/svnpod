@@ -1,0 +1,14 @@
+{
+  "name": "svnpod",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/bin/coffee ."
+  },
+  "dependencies": {
+    "coffee-script":"latest",
+    "jade":"latest",
+    "stylus":"latest",
+    "express": "3.0.4"
+  }
+}
