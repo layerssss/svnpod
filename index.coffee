@@ -23,6 +23,10 @@ app.configure ->
 app.configure "development", ->
   app.use express.errorHandler()
 
+app.use express.basicAuth (user, pass, next)->
+  fs.readFile app.get('passwd_svnserve'),'utf8',(err, text)->
+    next err, ((text||'').match(new RegExp("(#{user}):#{pass}"))||[])[1]
+
     
 app.all "*",(req,res,next)->
   console.log req.user
