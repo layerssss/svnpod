@@ -7,6 +7,7 @@ http = require("http")
 path = require("path")
 fs = require 'fs'
 app = express()
+childprocess = require 'child_process'
 
 app.configure ->
   app.set "port", process.env.PORT or 3000
@@ -25,17 +26,31 @@ app.configure "development", ->
 
 app.use express.basicAuth (user, pass, next)->
   fs.readFile app.get('passwd_svnserve'),'utf8',(err, text)->
-    next err, ((text||'').match(new RegExp("(#{user}):#{pass}"))||[])[1]
+    next err, (text.match(new RegExp("(#{user}):#{pass}$",'m'))||[])[1]
 
 app.get '/', (req, res, next)->
   res.render 'index'
+    user: req.user
 
 app.post '/', (req, res, next)->
   fs.exists app.get('passwd_apache'), (exists)->
     return next() if exists
-    fs.writeFileSync app.get('passwd_apache'),'','utf8',next
+    fs.writeFile app.get('passwd_apache'),'','utf8',next
+
+app.post '/', (req, res, next)->
+  childprocess.exec "htpasswd -b #{app.get 'passwd_apache'} \"#{req.user}\" \"#{req.body.password}\"",next
+
+app.post '/', (req, res, next)->
+  fs.readFile app.get('passwd_svnserve'),'utf8',(err, text)->
+    req.passwd = text
+    next err
+
+app.post '/', (req, res, next)->
+  fs.writeFile app.get('passwd_svnserve'),req.passwd.replace(new RegExp("#{req.user}:.*$",'m'),"#{req.user}:#{req.body.password}"),'utf8',next
 
 
+app.post '/', (req, res, next)->
+  res.redirect 'back'
 
 
 

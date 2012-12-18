@@ -2,9 +2,20 @@
 head
   title dnsboard
 body.container-fluid
-  h1 dnsboard
-  section
+  form(method='post')
+    h1 Welcome, #{user} !
+    h6 This is a place you can change your svn password!
+    .box
+      input(type='password',name='password',placeholder='new password')
+      input(type='password',name='password2',placeholder='new password again')
+      button(type='submit') Change
   script(src='jquery.js')
-  :coffeescript
-    $ ->
+  :stylus
+    *
+      font-size 1.1em
+      font-family Helvetica
+    h1
+      font-size 4em
+    .box
+      border solid 1px black
   script(src='prefixfree.js')
