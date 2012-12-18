@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/bin/coffee ."
+    "start": "node_modules/bin/coffee-script/bin/coffee ."
   },
   "dependencies": {
     "coffee-script":"latest",
