@@ -1,7 +1,7 @@
 svnpod
 ======
 
-manage our svn passwords easily
+let users manage their svn passwords easily
 
 config
 ========
