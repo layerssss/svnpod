@@ -26,7 +26,7 @@ app.configure "development", ->
 
 app.use express.basicAuth (user, pass, next)->
   fs.readFile app.get('passwd_svnserve'),'utf8',(err, text)->
-    next err, (text.match(new RegExp("(#{user}):#{pass}$",'m'))||[])[1]
+    next err, (text.match(new RegExp("(#{user}) = #{pass}$",'m'))||[])[1]
 
 app.get '/', (req, res, next)->
   res.render 'index'
@@ -46,7 +46,7 @@ app.post '/', (req, res, next)->
     next err
 
 app.post '/', (req, res, next)->
-  fs.writeFile app.get('passwd_svnserve'),req.passwd.replace(new RegExp("#{req.user}:.*$",'m'),"#{req.user}:#{req.body.password}"),'utf8',next
+  fs.writeFile app.get('passwd_svnserve'),req.passwd.replace(new RegExp("#{req.user} = .*$",'m'),"#{req.user} = #{req.body.password}"),'utf8',next
 
 
 app.post '/', (req, res, next)->
