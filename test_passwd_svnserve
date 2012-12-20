@@ -1,2 +1,2 @@
-admin:
-user:abc
+admin = admin
+user = s
