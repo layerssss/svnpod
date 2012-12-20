@@ -19,6 +19,7 @@ app.configure ->
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.cookieParser()
+  app.use express.static path.join __dirname,'public'
 
   
 app.configure "development", ->

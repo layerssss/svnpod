@@ -2,12 +2,12 @@
 head
   title dnsboard
 body.container-fluid
-  form(method='post')
+  form(method='post',onsubmit='if($(".password").val()!=$(".password2").val()){alert("two passwords different, check again!");return false;}else{alert("After your password changed, you need to re-login.")}')
     h1 Welcome, #{user} !
     h6 This is a place you can change your svn password!
     .box
-      input(type='password',name='password',placeholder='new password')
-      input(type='password',name='password2',placeholder='new password again')
+      input.password(type='password',name='password',placeholder='new password')
+      input.password2(type='password',name='password2',placeholder='new password again')
       button(type='submit') Change
   script(src='jquery.js')
   :stylus
@@ -18,4 +18,3 @@ body.container-fluid
       font-size 4em
     .box
       border solid 1px black
-  script(src='prefixfree.js')
