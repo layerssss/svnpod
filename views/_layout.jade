@@ -1,0 +1,46 @@
+!!!
+html
+  head
+    meta(name="apple-mobile-web-app-capable",content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style",content="black")
+    meta(name="format-detection",content="telephone=no")
+    meta(name="viewport",content="width=device-width,initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8, user-scalable=no")
+    title=title
+    link(href="/components/bootstrap/docs/assets/css/bootstrap.css",rel="stylesheet")
+    link(href="/components/bootstrap/docs/assets/css/bootstrap-responsive.css",rel="stylesheet")
+    link(href="/components/font-awesome/css/font-awesome.min.css",rel="stylesheet")
+    script(src='/components/bootstrap/docs/assets/js/jquery.js')
+    //if lt IE 9
+      script(src='/components/bootstrap/docs/assets/js/html5shiv.js')
+    script(src='/components/bootstrap/docs/assets/js/bootstrap.min.js')
+  body(style='padding: 20px;')
+    .container
+      .navbar
+        .navbar-inner
+          a.brand(href='/')=title
+          ul.nav.pull-right
+            if user
+              if user==process.env.ADMIN
+                li
+                  a(href='/users/')
+                    i.icon-wrench
+                    |管理所有用户
+              li
+                a(href='/')
+                  i.icon-wrench
+                  =user
+              li
+                a(href='/signout')
+                  i.icon-signout
+                  |登出
+            else
+              li
+                a(href='/')
+                  i.icon-signin 登入
+      div(class=wrapper)
+        block content
+  footer
+    .container 
+      |powered by 
+      a(href='http://micy.in/svnpod/',target='_blank') svnpod #{version}
+      |由#{process.env.ADMIN}管理

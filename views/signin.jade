@@ -1,0 +1,9 @@
+extends _layout
+block content
+  form(method='post',action='/signin').row-fluid
+    h1.page-header 登入
+    input.span12(type='text',name='signin_login',placeholder='用户名..')
+    input.span12(type='password',name='signin_pass',placeholder='密码..')
+    button.btn.btn-block.btn-primary(type='submit')
+      i.icon-signin
+      |登入

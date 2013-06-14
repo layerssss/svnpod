@@ -1,0 +1,7 @@
+extends _layout
+block content
+  h1.page-header 错误
+  =message
+  a.btn.btn-primary(href='#',onclick='history.go(-1);return false;')
+    i.icon-ok
+    |确定

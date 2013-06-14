@@ -1,0 +1,13 @@
+extends _layout
+block content
+  form(method='post',action='/').row-fluid
+    h1.page-header 更改我的密码
+    input.span12(type='password',name='pass',placeholder='新密码..')
+    input.span12(type='password',name='pass2',placeholder='新密码 再输入一遍..')
+    button.btn.btn-block.btn-primary(type='submit')
+      i.icon-ok
+      |更改密码
+  if process.env.ADMIN==user
+    h2 其他操作
+    |你是管理员，你也可以
+    a(href='/users/') 管理所有用户

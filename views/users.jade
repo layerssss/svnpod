@@ -1,0 +1,33 @@
+extends _layout
+block content
+  h1.page-header 管理所有用户
+  table.table.table-hover
+    thead
+      tr
+        th 用户名
+        th 操作
+    tbody
+      for user in users
+        tr
+          td=user
+          td
+            form.form-inline(style='margin: 0;',method='post',action='/users/#{user}?_method=put')
+              input.input-medium(type='password',name='pass',placeholder='新密码..')
+              input.input-medium(type='password',name='pass2',placeholder='新密码 再输入一遍..')
+              .btn-group
+                button.btn.btn-primary
+                  i.icon-ok
+                  |重置密码
+                a.btn.btn-danger(href='/users/#{user}?_method=delete') 
+                  i.icon-remove
+                  |删除#{user}
+      tr
+        td(colspan=2)
+          form.form-inline(style='margin: 0;',method='post',action='/users/')
+            input.input-medium(type='text',name='login',placeholder='新用户名..')
+            input.input-medium(type='password',name='pass',placeholder='新密码..')
+            input.input-medium(type='password',name='pass2',placeholder='新密码 再输入一遍..')
+            .btn-group
+              button.btn.btn-primary
+                i.icon-plus
+                |添加用户
